@@ -1,96 +1,116 @@
 #include "TXLib.h"
 
-void CatDraw (double x, double y, int widthLine, double size, int hatForCatColor1, int hatForCatColor2, int hatForCatColor3);
+void CatDraw (double x, double y, int widthLine, double size,
+              double distFoot,
+              double hLeftFoot, double hRightFoot,
+              double rLeftFoot, double rRightFoot,
+              double distEars,
+              double distTail,
+              int redHat, int greenHat, int blueHat);
 
 //-----------------------------------------------------------------------------
 int main ()
     {
+
     //---Окошко
     txCreateWindow (1200, 800);
     txSetFillColor (TX_WHITE);
     txRectangle(0, 0, 1200, 800);
+    int redHat = 122;
+    int greenHat = 69;
+    int blueHat = 31;
     //---Котик
-    double x = 600;
-    double y = 400;
-    double size = 2;
-    int hatForCatColor1 = 122;
-    int hatForCatColor2 = 69;
-    int hatForCatColor3 = 31;
-    for(int z = 0; z <= 23; z++)
+    CatDraw (600, 400, 2, 2, 20, -5, -5, 5, 5, 30, 70, redHat, greenHat, blueHat);
+
+    for(int n = 1; n <= 100; n++)
         {
-        CatDraw (600, 400, 2, 2, 100, 30, 13);
+        CatDraw (600, 400, 2, 2, 20, -11 * n%2+10, -(11 * (n+1)%2), 5, 5, 30-n%2*10, 70, redHat, greenHat, blueHat);
+        redHat += 3*n;
+        greenHat += 2*n;
+        blueHat += 1*n;
 
-            for(int n = 1; n <= 100; n++)
-              {
-              hatForCatColor1 = hatForCatColor1 + 3*n;
-              hatForCatColor2 = hatForCatColor2 + 2*n;
-              hatForCatColor3 = hatForCatColor3 + 1*n;
-              }
-
-        txSleep(150);
-        txSetFillColor (TX_WHITE);
-        txClear();
+        txSleep(700);
         }
+
+
+
     return 0;
     }
 
 //-----------------------------------------------------------------------------
-void CatDraw (double x, double y, int widthLine, double size, int hatForCatColor1, int hatForCatColor2, int hatForCatColor3)
+void CatDraw (double x, double y, int widthLine, double size,
+              double distFoot,
+              double hLeftFoot, double hRightFoot,
+              double rLeftFoot, double rRightFoot,
+              double distEars,
+              double distTail,
+              int redHat, int greenHat, int blueHat)
     {
     //---Голова
     txSetColor ((TX_BLACK), widthLine);
     txSetFillColor (RGB(217, 113, 28));
     txCircle (x, y - 20*size, 20*size);
+
     //---Носик
     txSetFillColor ((TX_BLACK));
-    POINT nose[3] = {{x,          y - 10*size},
-                     {x - 3*size, y - 15*size},
-                     {x + 3*size, y - 15*size}};
+    POINT nose[3] = {{ROUND(x),          ROUND(y - 10*size)},
+                     {ROUND(x - 3*size), ROUND(y - 15*size)},
+                     {ROUND(x + 3*size), ROUND(y - 15*size)}};
     txPolygon (nose, 3);
+
     //---Брюшко
     txSetFillColor (RGB(217, 113, 28));
-    POINT body[3] = {{x,           y          },
-                     {x - 40*size, y + 70*size},
-                     {x + 40*size, y + 70*size}};
+    POINT body[3] = {{ROUND(x),           ROUND(y)          },
+                     {ROUND(x - 40*size), ROUND(y + 70*size)},
+                     {ROUND(x + 40*size), ROUND(y + 70*size)}};
     txPolygon (body, 3);
+
     //---Усы
     txLine (x, y - 10*size, x + 20*size, y - 20*size);
     txLine (x, y - 10*size, x + 20*size, y - 10*size);
     txLine (x, y - 10*size, x - 20*size, y - 20*size);
     txLine (x, y - 10*size, x - 20*size, y - 10*size);
+
     //---Ушки
     //------Левое ушко
     txSetFillColor (RGB(217, 113, 28));
-    POINT leftEar[3] = {{x - 18*size, y - 28*size},
-                        {x - 30*size, y - 50*size},
-                        {x - 10*size, y - 38*size}};
+    POINT leftEar[3] = {{ROUND(x - 18*size),       ROUND(y - 28*size)},
+                        {ROUND(x - distEars*size), ROUND(y - 50*size)},
+                        {ROUND(x - 10*size),       ROUND(y - 38*size)}};
     txPolygon (leftEar, 3);
+
     //------Правое ушко
     txSetFillColor (RGB(217, 113, 28));
-    POINT rightEar[3] = {{x + 18*size, y - 28*size},
-                         {x + 30*size, y - 50*size},
-                         {x + 10*size, y - 38*size}};
+    POINT rightEar[3] = {{ROUND(x + 18*size),       ROUND(y - 28*size)},
+                         {ROUND(x + distEars*size), ROUND(y - 50*size)},
+                         {ROUND(x + 10*size),       ROUND(y - 38*size)}};
     txPolygon (rightEar, 3);
+
     //---Лапки
     //------Левая лапка
     txSetFillColor (RGB(206, 107, 74));
-    txCircle (x - 20, y + 65*size, 5*size);
+    txCircle (x - distFoot, y + 70*size + hLeftFoot, rLeftFoot*size);
+
     //------Правая лапка
     txSetFillColor (RGB(206, 107, 74));
-    txCircle (x + 20, y + 65*size, 5*size);
+    txCircle (x + distFoot, y + 70*size + hRightFoot, rRightFoot*size);
+
     //---Хвостик
-    txLine (x + 40*size, y + 70*size, x + 70*size, y);
+    txLine (x + 40*size, y + 70*size, x + distTail*size, y);
+
     //---Глазки
     txSetFillColor (TX_BLACK);
     txCircle (x - 6*size, y - 22*size, 2*size);
     txCircle (x + 6*size, y - 22*size, 2*size);
+
     //---Ротик
     txLine (x, y - 10*size, x - 3*size, y - 10);
     txLine (x, y - 10*size, x + 3*size, y - 10);
+
     //---Колпачок
-    txSetFillColor (RGB(hatForCatColor1, hatForCatColor2, hatForCatColor3));
-    POINT hatForCat[3] = {{x - 10*size, y - 39*size},
-                          {x,           y - 70*size},
-                          {x + 10*size, y - 39*size}};
+    txSetFillColor (RGB(redHat, greenHat, blueHat));
+    POINT hatForCat[3] = {{ROUND(x - 10*size), ROUND(y - 39*size)},
+                          {ROUND(x),           ROUND(y - 70*size)},
+                          {ROUND(x + 10*size), ROUND(y - 39*size)}};
     txPolygon (hatForCat, 3);
     }
