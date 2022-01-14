@@ -1,12 +1,14 @@
 #include "TXLib.h"
 
+
 void CatDraw (double x, double y, int widthLine, double size,
               double distFoot,
               double hLeftFoot, double hRightFoot,
               double rLeftFoot, double rRightFoot,
               double distEars,
               double distTail,
-              int redHat, int greenHat, int blueHat);
+              double hLeftUs1, double hLeftUs2,
+              int redHat, int greenHat, int blueHat); //16
 
 //-----------------------------------------------------------------------------
 int main ()
@@ -20,19 +22,24 @@ int main ()
     int greenHat = 69;
     int blueHat = 31;
     //---Котик
-    CatDraw (600, 400, 2, 2, 20, -5, -5, 5, 5, 30, 70, redHat, greenHat, blueHat);
+    CatDraw (600, 400, 2, 2, 20, -5, -5, 5, 5, 30, 70, 30, 10, redHat, greenHat, blueHat);   //16
 
+//------Сцена 1------
     for(int n = 1; n <= 100; n++)
         {
-        CatDraw (600, 400, 2, 2, 20, -11 * n%2+10, -(11 * (n+1)%2), 5, 5, 30-n%2*10, 70, redHat, greenHat, blueHat);
+        CatDraw (600, 400, 2, 2, 20, -51*n%2, -(51*(n+1)%2), 5, 5, 30-n%2*10, 70-n*(n%2), -31*n%2, 1, redHat, greenHat, blueHat); //16
         redHat += 3*n;
         greenHat += 2*n;
         blueHat += 1*n;
+        txSelectFont ("Comic Sans MS", 40, 10, FW_BOLD, false, false, false, 0);
 
-        txSleep(700);
+        txTextOut (565, 200, "Привет!");
+        txTextOut (450, 550, "Я - большой рыжий кот Гоша");
+        txSleep(300);
+
+        txSetFillColor (TX_WHITE);
+        txClear();
         }
-
-
 
     return 0;
     }
@@ -44,7 +51,8 @@ void CatDraw (double x, double y, int widthLine, double size,
               double rLeftFoot, double rRightFoot,
               double distEars,
               double distTail,
-              int redHat, int greenHat, int blueHat)
+              double hLeftUs1, double hLeftUs2,
+              int redHat, int greenHat, int blueHat) //16
     {
     //---Голова
     txSetColor ((TX_BLACK), widthLine);
@@ -113,4 +121,4 @@ void CatDraw (double x, double y, int widthLine, double size,
                           {ROUND(x),           ROUND(y - 70*size)},
                           {ROUND(x + 10*size), ROUND(y - 39*size)}};
     txPolygon (hatForCat, 3);
-    }
+}
