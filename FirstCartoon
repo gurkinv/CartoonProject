@@ -1,5 +1,7 @@
 #include "TXLib.h"
 #include "Sdk/GurkinLib.h"
+#include "Sdk/GalyarovLib.h"
+#include "Sdk/KulyutnikovaLib.h"
 
 
 void SceneOne (int redHat, int greenHat, int blueHat);
@@ -11,6 +13,8 @@ void SceneThree (int redHat, int greenHat, int blueHat);
 void SceneFour (int redHat, int greenHat, int blueHat);
 
 void SceneFive (int redHat, int greenHat, int blueHat);
+
+void SceneSix (int redHat, int greenHat, int blueHat);
 
 //-----------------------------------------------------------------------------
 int main ()
@@ -27,16 +31,18 @@ int main ()
     CatBody (600, 400, 2, 20, 70, -5, -5, 5, 5);  //10
     CatHead (600, 400, 2, 2, 30, redHat, greenHat, blueHat);  //8
 
-    SceneOne (redHat, greenHat, blueHat);
+    //SceneOne (redHat, greenHat, blueHat);
 
-    SceneTwo (redHat, greenHat, blueHat);
+    //SceneTwo (redHat, greenHat, blueHat);
 
-    txPlaySound ("jingle_cut.wav");
-    SceneThree (redHat, greenHat, blueHat);
+    //txPlaySound ("jingle_cut.wav");
+    //SceneThree (redHat, greenHat, blueHat);
 
-    SceneFour (redHat, greenHat, blueHat);
+    //SceneFour (redHat, greenHat, blueHat);
 
-    SceneFive (redHat, greenHat, blueHat);
+    //SceneFive (redHat, greenHat, blueHat);
+
+    SceneSix (redHat, greenHat, blueHat);
 
     return 0;
     }
@@ -296,10 +302,117 @@ void SceneFive (int redHat, int greenHat, int blueHat)
         txClear();
         }
 
+    for(int n = 1; n <= 10; n++)
+        {
+        Background ();
+        Clouds ();
+        KolobokS (1150, 75, 2, 1.3);
+        txSetColor (TX_BLACK);
+        CatBody (600, 400, 2, 20, 70-n%2*20, -51*n%2, -(51*(n+1)%2), 5, 5);  //10
+        CatHead (600, 400, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+
+        txSelectFont ("Comic Sans MS", 40, 10, FW_BOLD, false, false, false, 0);
+        txTextOut (420, 550, "Мне надо у кого-то про это спросить");
+
+        txSleep(300);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+
     for(int n = 1; n <= 15; n++)
         {
         Background ();
         Clouds ();
+        CatBody (600-(30*n), 400, 2, 20, 70-n%2*20, -51*n%2, -(51*(n+1)%2), 5, 5);  //10
+        CatHead (600-(30*n), 400, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        KolobokS (1150, 75, 2, 1.3);
+        txSetColor (TX_BLACK);
+
+        txSleep(300);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+    }
+
+void SceneSix (int redHat, int greenHat, int blueHat)
+    {
+    for(int n = 1; n <= 20; n++)
+        {
+        fon_scene1 ();
+        CatBody (900, 400, 2, 20, 70-n%2*20, -51*n%2, -(51*(n+1)%2), 5, 5);  //10
+        CatHead (900, 400, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        KolobokS (300, 400, 2, 1.3);
+        txSetColor (TX_BLACK);
+
+        txSelectFont ("Comic Sans MS", 40, 10, FW_BOLD, false, false, false, 0);
+        txTextOut (160, 550, "Oh, how can that be.");
+        txTextOut (10, 600, "I will not be able to remove the splinter, there are no pens!");
+        txTextOut (750, 600, "Кажется у нас не получится");
+        txTextOut (800, 650, "найти общий язык");
+
+        txSleep(300);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+    for(int n = 1; n <= 15; n++)
+        {
+        fon_scene1 ();
+        CatBody (900-15*n, 400-15*n, 2, 20, 70-n%2*20, 10, 35, 5, 5);  //10
+        CatHead (900-15*n, 400-15*n, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        KolobokS (300, 400, 2, 1.3);
+        txSetColor (TX_BLACK);
+
+        txSleep(100);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+    for(int n = 1; n <= 10; n++)
+        {
+        fon_scene1 ();
+        CatBody (675-25*n, 175+10*n, 2, 20, 70-n%2*20, 35, 10, 5, 5);  //10
+        CatHead (675-25*n, 175+10*n, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        KolobokS (300, 400, 2, 1.3);
+        txSetColor (TX_BLACK);
+
+        txSleep(100);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+    for(int n = 1; n <= 9; n++)
+        {
+        fon_scene1 ();
+        CatBody (425-25*n, 175+10*n, 2, 20, 70-n%2*20, 35, 10, 5, 5);  //10
+        CatHead (425-25*n, 175+10*n, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        KolobokS (300, 400, 2, 1.3*(n%9*0.5));
+        txSetColor (TX_BLACK);
+
+        txSleep(100);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+    for(int n = 1; n <= 15; n++)
+        {
+        fon_scene1 ();
+        CatBody (325, 400, 2, 20, 70-n%2*20, -51*n%2, -(51*(n+1)%2), 5, 5);  //10
+        CatHead (325, 400, 2, 2, 30-n%2*10, redHat, greenHat, blueHat);  //8
+        Igor (200, 100, 1, 1, 2, 2);
+        txSetColor (TX_BLACK);
+        txTextOut (175, 550, "С кем же здесь найти общий язык?");
+
+        txSleep(300);
+        txSetFillColor (TX_WHITE);
+        txClear();
+        }
+
+    for(int n = 1; n <= 15; n++)
+        {
+        Clouds ();
+        Background ();
         CatBody (600, 400, 6, 20, 70-n%2*20, -51*n%2, -(51*(n+1)%2), 5, 5);  //10
         CatHead (600, 400, 2, 6, 30-n%2*10, redHat, greenHat, blueHat);  //8
 
